@@ -1,12 +1,7 @@
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
-import { qAllCategories } from "@/lib/sanity/queries";
+import { categories } from "@/lib/catalog";
 
-export const revalidate = 3600;
-
-export default async function ProductsIndexPage() {
-  const categories: any[] = await sanityClient.fetch(qAllCategories);
-
+export default function ProductsIndexPage() {
   return (
     <div className="container-shell py-10">
       <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
@@ -19,19 +14,12 @@ export default async function ProductsIndexPage() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {categories.map((c) => (
           <Link
-            key={c._id}
+            key={c.slug}
             href={`/products/${c.slug}`}
             className="rounded-3xl border border-zinc-200 p-5 hover:bg-zinc-50"
           >
             <div className="text-sm font-semibold">{c.title}</div>
-
-            {c.description ? (
-              <p className="mt-2 line-clamp-3 text-sm text-zinc-600">
-                {c.description}
-              </p>
-            ) : (
-              <p className="mt-2 text-sm text-zinc-600">View products</p>
-            )}
+            <p className="mt-2 text-sm text-zinc-600">{c.subtitle}</p>
           </Link>
         ))}
       </div>

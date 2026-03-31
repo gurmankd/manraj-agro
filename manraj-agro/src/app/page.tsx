@@ -1,16 +1,19 @@
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
-import { qFeaturedProducts, qTestimonials } from "@/lib/sanity/queries";
+import { getFeaturedProducts, testimonials } from "@/lib/catalog";
 import { ProductCard } from "@/components/products/ProductCard";
 import { TestimonialsCarousel } from "@/components/site/testimonials-carousel";
 
-export const revalidate = 3600;
+// Map catalog shape → carousel shape
+const carouselTestimonials = testimonials.map((t) => ({
+  _id: t.id,
+  name: t.name,
+  place: t.location,
+  quote: t.body,
+  rating: t.rating,
+}));
 
-export default async function HomePage() {
-  const [featured, testimonials] = await Promise.all([
-  sanityClient.fetch(qFeaturedProducts),
-  sanityClient.fetch(qTestimonials),
-]);
+export default function HomePage() {
+  const featured = getFeaturedProducts();
 
   return (
     <div>
@@ -18,7 +21,7 @@ export default async function HomePage() {
       <section className="container-shell py-12">
         <div className="rounded-3xl border border-zinc-200 bg-white p-8">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Tractors, Harvesters & Farm Implements
+            Tractors, Harvesters &amp; Farm Implements
           </h1>
           <p className="mt-3 max-w-2xl text-sm text-zinc-600">
             Browse products and request the latest price on WhatsApp. Fast quotes,
@@ -50,7 +53,7 @@ export default async function HomePage() {
               Featured Products
             </h2>
             <p className="mt-1 text-sm text-zinc-600">
-              Popular machines and implements (managed in CMS).
+              Popular machines and implements.
             </p>
           </div>
 
@@ -64,11 +67,12 @@ export default async function HomePage() {
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((p) => (
-            <ProductCard key={p._id} p={p} />
+            <ProductCard key={p.slug} p={p} />
           ))}
         </div>
       </section>
-      <TestimonialsCarousel items={testimonials} />
+
+      <TestimonialsCarousel items={carouselTestimonials} />
     </div>
   );
 }

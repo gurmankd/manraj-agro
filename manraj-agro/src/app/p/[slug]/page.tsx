@@ -1,125 +1,165 @@
 import Image from "next/image";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
-import { qProductBySlug } from "@/lib/sanity/queries";
-import { urlFor } from "@/lib/sanity/image";
+import { notFound } from "next/navigation";
+import { getProductBySlug, getCategoryBySlug, getTractorsBySeries } from "@/lib/catalog";
 import { QuoteCTA } from "@/components/quote/QuoteCTA";
-
-export const revalidate = 3600;
 
 export default async function ProductPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const p: any = await sanityClient.fetch(qProductBySlug, { slug: params.slug });
+  const { slug } = await params;
+  const p = getProductBySlug(slug);
+  if (!p) notFound();
 
-  if (!p) {
-    return (
-      <div className="container-shell py-16">
-        <h1 className="text-xl font-bold">Product not found</h1>
-        <Link href="/products" className="mt-4 inline-block text-sm underline">
-          Go to products
-        </Link>
-      </div>
-    );
-  }
+  const category = getCategoryBySlug(p.category);
+
+  // Related: other products in the same series (tractors) or same category
+  const related = p.series
+    ? getTractorsBySeries(p.series).filter((r) => r.slug !== p.slug).slice(0, 3)
+    : [];
 
   return (
     <div className="container-shell py-10">
-      <div className="grid gap-8 lg:grid-cols-2">
-        {/* Gallery */}
-        <div className="space-y-4">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100">
-            {p.images?.[0] ? (
+      {/* Breadcrumb */}
+      <nav className="mb-6 flex items-center gap-2 text-xs text-zinc-500">
+        <Link href="/products" className="hover:underline">Products</Link>
+        <span>/</span>
+        <Link href={`/products/${p.category}`} className="hover:underline">
+          {category?.title ?? p.category}
+        </Link>
+        {p.series && (
+          <>
+            <span>/</span>
+            <Link
+              href={`/products/${p.category}#series-${p.series.replace(" ", "-").toLowerCase()}`}
+              className="hover:underline"
+            >
+              {p.series}
+            </Link>
+          </>
+        )}
+        <span>/</span>
+        <span className="text-zinc-800 font-medium">{p.title}</span>
+      </nav>
+
+      <div className="grid gap-10 lg:grid-cols-2">
+        {/* Left — image */}
+        <div>
+          <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-50">
+            {p.image ? (
               <Image
-                src={urlFor(p.images[0]).width(1200).height(900).format("webp").url()}
+                src={p.image}
                 alt={p.title}
                 fill
-                className="object-cover"
+                className="object-contain p-8"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                unoptimized
                 priority
               />
-            ) : null}
+            ) : (
+              <span className="text-8xl select-none">🚜</span>
+            )}
           </div>
 
-          {p.images?.length > 1 ? (
-            <div className="grid grid-cols-3 gap-3">
-              {p.images.slice(1, 4).map((img: any, i: number) => (
-                <div
-                  key={i}
-                  className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100"
-                >
-                  <Image
-                    src={urlFor(img).width(600).height(450).format("webp").url()}
-                    alt={`${p.title} photo ${i + 2}`}
-                    fill
-                    className="object-cover"
-                    sizes="33vw"
-                  />
-                </div>
-              ))}
-            </div>
-          ) : null}
+          {/* Source link for tractors */}
+          {p.deereUrl && (
+            <p className="mt-3 text-center text-xs text-zinc-400">
+              Official model info:{" "}
+              <a
+                href={p.deereUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-zinc-700"
+              >
+                deere.co.in
+              </a>
+            </p>
+          )}
         </div>
 
-        {/* Details */}
+        {/* Right — details */}
         <div>
-          <p className="text-xs font-semibold text-zinc-600">
-            {p.category?.title ?? "Product"}
-          </p>
+          {/* Series badge */}
+          {p.series && (
+            <span className="inline-block rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+              John Deere {p.series}
+            </span>
+          )}
 
-          <h1 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
+          <h1 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">
             {p.title}
           </h1>
 
-          <p className="mt-2 text-sm text-zinc-600">
-            {p.brand ? `Brand: ${p.brand}` : "Agricultural machinery"}
-          </p>
-
-          <div className="mt-5 rounded-3xl border border-zinc-200 p-5">
-            <div className="text-sm font-semibold">
-              {p.priceType === "fixed" && p.price
-                ? `₹ ${Number(p.price).toLocaleString("en-IN")}`
-                : "Get latest price"}
-            </div>
-            <p className="mt-1 text-sm text-zinc-600">
-              Request callback for availability, offers, and delivery details.
+          {p.brand && (
+            <p className="mt-1 text-sm text-zinc-500">
+              Brand: <span className="font-medium text-zinc-800">{p.brand}</span>
             </p>
-            <div className="mt-4">
-              <QuoteCTA productTitle={p.title} />
-            </div>
-          </div>
+          )}
 
+          {p.description && (
+            <p className="mt-4 text-sm leading-relaxed text-zinc-600">
+              {p.description}
+            </p>
+          )}
+
+          {/* Highlights */}
           {p.highlights?.length ? (
             <div className="mt-6">
-              <h2 className="text-sm font-semibold">Highlights</h2>
-              <ul className="mt-3 space-y-2 text-sm text-zinc-700">
-                {p.highlights.map((h: string, idx: number) => (
-                  <li key={idx} className="flex gap-2">
-                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-zinc-900" />
-                    <span>{h}</span>
+              <h2 className="text-sm font-bold text-zinc-900">Key Highlights</h2>
+              <ul className="mt-3 grid grid-cols-2 gap-2">
+                {p.highlights.map((h, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-2 rounded-2xl border border-zinc-100 bg-zinc-50 px-3 py-2 text-xs text-zinc-700"
+                  >
+                    <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" />
+                    {h}
                   </li>
                 ))}
               </ul>
             </div>
           ) : null}
 
+          {/* Quote / CTA box */}
+          <div className="mt-6 rounded-3xl border border-zinc-200 bg-white p-5">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <div className="text-base font-bold text-zinc-900">
+                  {p.price ?? "Get latest price"}
+                </div>
+                <p className="mt-0.5 text-xs text-zinc-500">
+                  Price may vary by variant &amp; location. Request a callback for exact quote.
+                </p>
+              </div>
+              <span className="rounded-full bg-green-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 border border-green-200">
+                In Stock
+              </span>
+            </div>
+            <div className="mt-4">
+              <QuoteCTA productTitle={p.title} />
+            </div>
+          </div>
+
+          {/* Specs table */}
           {p.specs?.length ? (
             <div className="mt-8">
-              <h2 className="text-sm font-semibold">Specifications</h2>
+              <h2 className="text-sm font-bold text-zinc-900">Specifications</h2>
               <div className="mt-3 overflow-hidden rounded-3xl border border-zinc-200">
                 <table className="w-full text-left text-sm">
                   <tbody>
-                    {p.specs.map((s: any, idx: number) => (
+                    {p.specs.map((s, idx) => (
                       <tr
                         key={idx}
                         className={idx % 2 === 0 ? "bg-white" : "bg-zinc-50"}
                       >
-                        <td className="w-1/2 px-4 py-3 font-medium text-zinc-800">
+                        <td className="w-2/5 px-4 py-3 font-medium text-zinc-700">
                           {s.k}
                         </td>
-                        <td className="px-4 py-3 text-zinc-700">{s.v}</td>
+                        <td className="px-4 py-3 text-zinc-900 font-semibold">
+                          {s.v}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -129,6 +169,43 @@ export default async function ProductPage({
           ) : null}
         </div>
       </div>
+
+      {/* Related models */}
+      {related.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-lg font-extrabold tracking-tight text-zinc-900">
+            Other {p.series} Models
+          </h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/p/${r.slug}`}
+                className="group flex items-center gap-4 rounded-3xl border border-zinc-200 bg-white p-4 hover:bg-zinc-50 transition-colors"
+              >
+                <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-2xl bg-zinc-100">
+                  {r.image ? (
+                    <Image
+                      src={r.image}
+                      alt={r.title}
+                      fill
+                      className="object-contain p-1"
+                      unoptimized
+                    />
+                  ) : (
+                    <span className="flex h-full items-center justify-center text-2xl">🚜</span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-semibold text-zinc-900 leading-tight">{r.title}</div>
+                  <div className="mt-0.5 text-xs text-zinc-500">{r.highlights[0]}</div>
+                </div>
+                <span className="ml-auto text-xs text-zinc-400 group-hover:text-zinc-700">→</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
