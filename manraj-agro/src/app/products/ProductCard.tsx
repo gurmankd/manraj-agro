@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity/image";
+import type { Product } from "@/lib/catalog";
 
-export function ProductCard({ p }: { p: any }) {
+export function ProductCard({ p }: { p: Product }) {
   return (
     <Link
       href={`/p/${p.slug}`}

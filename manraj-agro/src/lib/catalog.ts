@@ -494,6 +494,7 @@ export const products: Product[] = [
     brand: "KS",
     price: "Get Quote",
     featured: true,
+    image: "https://ksagrotech.org/wp-content/uploads/2021/09/1000x1000_01.jpg",
     highlights: ["Multi-crop (Wheat & Paddy)", "Self-propelled", "High threshing efficiency", "Large grain tank"],
     description: "The KS 9300 is a high-performance self-propelled combine harvester built for wheat and paddy harvesting.",
     specs: [
@@ -509,6 +510,7 @@ export const products: Product[] = [
     category: "combine-harvesters",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2021/12/Greengold-220-Wheel.jpg",
     highlights: ["Compact design", "Small & medium farms", "Easy maneuverability"],
     description: "Ideal for small and medium-sized farms, this mini combine harvester provides reliable crop cutting and threshing.",
     specs: [
@@ -527,6 +529,7 @@ export const products: Product[] = [
     brand: "KS",
     price: "Get Quote",
     featured: true,
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/BEW-super-seeder.jpg",
     highlights: ["Direct seeding into crop residue", "Residue management", "Works with ~50 HP", "Eco-friendly — no stubble burning"],
     description: "The KS Super Seeder enables direct seeding without burning stubble.",
     specs: [
@@ -541,6 +544,7 @@ export const products: Product[] = [
     category: "seed-drills",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2022/01/Zero-Seed-Drill.jpg",
     highlights: ["Conservation tillage", "Efficient sowing", "Reduces input cost"],
     description: "The Zero Till Seed Drill allows direct seeding without primary tillage.",
     specs: [
@@ -559,6 +563,7 @@ export const products: Product[] = [
     brand: "KS",
     price: "Get Quote",
     featured: true,
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/Rotavator-3.jpg",
     highlights: ["6 ft working width", "Fine soil preparation", "Side gear drive", "45+ HP tractor"],
     description: "A robust 6 ft rotavator that breaks up and mixes the soil in a single pass.",
     specs: [
@@ -573,6 +578,7 @@ export const products: Product[] = [
     category: "rotavators",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/Rotavator-3.jpg",
     highlights: ["7 ft working width", "High field coverage", "Heavy-duty blades"],
     description: "The 7 ft rotavator offers wider soil preparation coverage per pass.",
     specs: [
@@ -591,6 +597,7 @@ export const products: Product[] = [
     brand: "KS",
     price: "Get Quote",
     featured: true,
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/1000x1000_12.jpg",
     highlights: ["7 ft working width", "Makes bhusa (fodder straw)", "No stubble burning needed"],
     description: "The KS Straw Reaper efficiently manages crop residue post-harvest by converting stubble into bhusa.",
     specs: [
@@ -608,6 +615,7 @@ export const products: Product[] = [
     category: "laser-land-levelers",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/Untitled-design-25.jpg",
     highlights: ["Precision levelling ±2 mm", "Saves 20–30% water", "GPS-assist compatible"],
     description: "Precision laser land levelling cuts water usage and improves irrigation efficiency.",
     specs: [
@@ -625,6 +633,7 @@ export const products: Product[] = [
     category: "threshers",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/1000x1000_15.jpg",
     highlights: ["Wheat, paddy & maize", "High output", "Auto straw discharge"],
     description: "A heavy-duty multi-crop thresher for wheat, paddy, and maize.",
     specs: [
@@ -638,6 +647,7 @@ export const products: Product[] = [
     category: "threshers",
     brand: "KS",
     price: "Get Quote",
+    image: "https://ksagrotech.org/wp-content/uploads/2021/10/1000x1000_15.jpg",
     highlights: ["Groundnut shelling", "Low damage rate", "Portable design"],
     description: "Specially designed for groundnut shelling with minimum pod damage.",
     specs: [
@@ -654,6 +664,7 @@ export const products: Product[] = [
     category: "parts",
     brand: "SKF / FAG",
     price: "Get Quote",
+    image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Outer_race_of_bearing.jpg",
     highlights: ["OEM quality", "All tractor models", "Bulk available"],
     description: "High-quality agricultural bearings compatible with all major tractor and implement brands.",
   },
@@ -663,6 +674,7 @@ export const products: Product[] = [
     category: "parts",
     brand: "Renold / Local",
     price: "Get Quote",
+    image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chain%20Drive%20%288084269479%29.jpg",
     highlights: ["All pitch sizes", "Rust-resistant", "Long service life"],
     description: "Heavy-duty roller drive chains for combines, seed drills, and other farm implements.",
   },

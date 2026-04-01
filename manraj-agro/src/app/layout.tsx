@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { TopBar } from "@/components/site/topbar";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { WhatsAppFab } from "@/components/site/whatsapp-fab";
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+        <TopBar />
         <Navbar />
         <main className="min-h-[70vh]">{children}</main>
         <WhatsAppFab />

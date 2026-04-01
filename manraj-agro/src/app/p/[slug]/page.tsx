@@ -47,7 +47,7 @@ export default async function ProductPage({
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Left — image */}
         <div>
-          <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-50">
+          <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-[color:var(--color-brand-line)] bg-[linear-gradient(180deg,rgba(237,245,232,0.8),rgba(255,255,255,0.96))]">
             {p.image ? (
               <Image
                 src={p.image}
@@ -83,7 +83,7 @@ export default async function ProductPage({
         <div>
           {/* Series badge */}
           {p.series && (
-            <span className="inline-block rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+            <span className="inline-block rounded-full border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[color:var(--color-brand-deep)]">
               John Deere {p.series}
             </span>
           )}
@@ -112,7 +112,7 @@ export default async function ProductPage({
                 {p.highlights.map((h, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2 rounded-2xl border border-zinc-100 bg-zinc-50 px-3 py-2 text-xs text-zinc-700"
+                    className="flex items-start gap-2 rounded-2xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)] px-3 py-2 text-xs text-zinc-700"
                   >
                     <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" />
                     {h}
@@ -123,7 +123,7 @@ export default async function ProductPage({
           ) : null}
 
           {/* Quote / CTA box */}
-          <div className="mt-6 rounded-3xl border border-zinc-200 bg-white p-5">
+          <div className="mt-6 rounded-3xl border border-[color:var(--color-brand-line)] bg-white p-5 shadow-[0_12px_30px_rgba(23,32,20,0.04)]">
             <div className="flex items-center justify-between gap-2">
               <div>
                 <div className="text-base font-bold text-zinc-900">
@@ -133,7 +133,7 @@ export default async function ProductPage({
                   Price may vary by variant &amp; location. Request a callback for exact quote.
                 </p>
               </div>
-              <span className="rounded-full bg-green-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 border border-green-200">
+              <span className="rounded-full border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[color:var(--color-brand-deep)]">
                 In Stock
               </span>
             </div>
@@ -146,13 +146,15 @@ export default async function ProductPage({
           {p.specs?.length ? (
             <div className="mt-8">
               <h2 className="text-sm font-bold text-zinc-900">Specifications</h2>
-              <div className="mt-3 overflow-hidden rounded-3xl border border-zinc-200">
+              <div className="mt-3 overflow-hidden rounded-3xl border border-[color:var(--color-brand-line)]">
                 <table className="w-full text-left text-sm">
                   <tbody>
                     {p.specs.map((s, idx) => (
                       <tr
                         key={idx}
-                        className={idx % 2 === 0 ? "bg-white" : "bg-zinc-50"}
+                        className={
+                          idx % 2 === 0 ? "bg-white" : "bg-[color:var(--color-brand-soft)]/65"
+                        }
                       >
                         <td className="w-2/5 px-4 py-3 font-medium text-zinc-700">
                           {s.k}
@@ -181,9 +183,9 @@ export default async function ProductPage({
               <Link
                 key={r.slug}
                 href={`/p/${r.slug}`}
-                className="group flex items-center gap-4 rounded-3xl border border-zinc-200 bg-white p-4 hover:bg-zinc-50 transition-colors"
+                className="group flex items-center gap-4 rounded-3xl border border-[color:var(--color-brand-line)] bg-white p-4 transition-all hover:-translate-y-0.5 hover:bg-[color:var(--color-brand-soft)]/45"
               >
-                <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-2xl bg-zinc-100">
+                <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-2xl bg-[color:var(--color-brand-soft)]">
                   {r.image ? (
                     <Image
                       src={r.image}

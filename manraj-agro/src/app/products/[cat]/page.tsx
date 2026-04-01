@@ -70,7 +70,7 @@ export default async function CategoryPage({
         </div>
         <Link
           href="/contact"
-          className="hidden rounded-2xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 sm:inline-block"
+          className="hidden rounded-2xl bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-[color:var(--color-brand-deep)] sm:inline-block"
         >
           Get Quote
         </Link>
@@ -89,23 +89,23 @@ export default async function CategoryPage({
                 <a
                   key={s.id}
                   href={`#series-${s.id.replace(" ", "-").toLowerCase()}`}
-                  className="group flex flex-col rounded-3xl border border-zinc-200 bg-white p-5 hover:bg-zinc-50 transition-colors"
+                  className="group flex flex-col rounded-3xl border border-[color:var(--color-brand-line)] bg-white p-5 shadow-[0_10px_26px_rgba(23,32,20,0.04)] transition-all hover:-translate-y-0.5 hover:bg-[color:var(--color-brand-soft)]/45"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="text-sm font-bold text-zinc-900">
+                    <span className="text-sm font-bold text-[color:var(--color-brand-ink)]">
                       John Deere {s.label}
                     </span>
-                    <span className="shrink-0 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-600">
+                    <span className="shrink-0 rounded-full border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)] px-2 py-0.5 text-[10px] font-semibold text-[color:var(--color-brand-deep)]">
                       {s.badge}
                     </span>
                   </div>
-                  <span className="mt-1 text-xs font-semibold text-green-700">
+                  <span className="mt-1 text-xs font-semibold text-[color:var(--color-brand-deep)]">
                     {s.range}
                   </span>
                   <p className="mt-2 text-xs leading-relaxed text-zinc-500">
                     {s.desc}
                   </p>
-                  <span className="mt-4 text-xs font-semibold text-zinc-700 group-hover:underline">
+                  <span className="mt-4 text-xs font-semibold text-[color:var(--color-brand-deep)] group-hover:underline">
                     View models ↓
                   </span>
                 </a>
@@ -123,7 +123,7 @@ export default async function CategoryPage({
                 id={`series-${s.id.replace(" ", "-").toLowerCase()}`}
                 className="mt-14 scroll-mt-24"
               >
-                <div className="flex items-end justify-between gap-4 border-b border-zinc-100 pb-3">
+                <div className="flex items-end justify-between gap-4 border-b border-[color:var(--color-brand-line)] pb-3">
                   <div>
                     <h2 className="text-lg font-extrabold tracking-tight text-zinc-900">
                       John Deere {s.label}

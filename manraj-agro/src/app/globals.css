@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #2f6b2f;
+  --color-brand-deep: #1f4d1f;
+  --color-brand-soft: #edf5e8;
+  --color-brand-line: #cfe0c2;
+  --color-brand-gold: #e1b62c;
+  --color-brand-ink: #172014;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(225, 182, 44, 0.12), transparent 26%),
+    linear-gradient(180deg, #f7f8f4 0%, #f3f5ee 100%);
+}
+
+body {
+  background:
+    linear-gradient(180deg, rgba(47, 107, 47, 0.04), transparent 220px),
+    transparent;
+  color: var(--color-brand-ink);
+}
+
 .container-shell {
   width: 100%;
   max-width: 1120px;

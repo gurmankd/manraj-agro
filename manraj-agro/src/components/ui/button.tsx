@@ -8,11 +8,11 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand text-white hover:opacity-95 focus-visible:ring-brand ring-offset-white",
+    "bg-brand text-white shadow-sm hover:bg-[color:var(--color-brand-deep)] focus-visible:ring-brand ring-offset-white",
   secondary:
-    "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 focus-visible:ring-slate-400 ring-offset-white",
+    "bg-white text-[color:var(--color-brand-ink)] border border-[color:var(--color-brand-line)] hover:bg-[color:var(--color-brand-soft)] focus-visible:ring-brand ring-offset-white",
   ghost:
-    "bg-transparent text-slate-900 hover:bg-slate-100 focus-visible:ring-slate-400 ring-offset-white",
+    "bg-transparent text-[color:var(--color-brand-ink)] hover:bg-[color:var(--color-brand-soft)] focus-visible:ring-brand ring-offset-white",
 };
 
 export function Button({

@@ -5,8 +5,10 @@ import { makeWhatsAppLink } from "@/lib/whatsapp";
 
 export function QuoteForm() {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6">
-      <div className="text-lg font-bold">Request a Quote</div>
+    <div className="rounded-3xl border border-[color:var(--color-brand-line)] bg-white p-6 shadow-[0_18px_40px_rgba(23,32,20,0.06)]">
+      <div className="text-lg font-bold text-[color:var(--color-brand-ink)]">
+        Request a Quote
+      </div>
       <p className="mt-2 text-sm text-slate-600">
         This form opens WhatsApp with your message (no backend needed).
       </p>
@@ -43,7 +45,7 @@ export function QuoteForm() {
           <label className="text-sm font-semibold">Your Name</label>
           <input
             name="name"
-            className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-700/30"
+            className="rounded-xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)]/45 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/30"
             placeholder="e.g., Gurpreet Singh"
           />
         </div>
@@ -52,7 +54,7 @@ export function QuoteForm() {
           <label className="text-sm font-semibold">Phone Number</label>
           <input
             name="phone"
-            className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-700/30"
+            className="rounded-xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)]/45 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/30"
             placeholder="e.g., 98XXXXXXXX"
           />
         </div>
@@ -61,7 +63,7 @@ export function QuoteForm() {
           <label className="text-sm font-semibold">Location</label>
           <input
             name="location"
-            className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-700/30"
+            className="rounded-xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)]/45 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/30"
             placeholder="e.g., Rampur / Gadarpur / nearby"
           />
         </div>
@@ -70,7 +72,7 @@ export function QuoteForm() {
           <label className="text-sm font-semibold">Product / Model</label>
           <input
             name="product"
-            className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-700/30"
+            className="rounded-xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)]/45 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/30"
             placeholder="e.g., John Deere 5050D / Super Seeder"
           />
         </div>
@@ -80,14 +82,14 @@ export function QuoteForm() {
           <textarea
             name="message"
             rows={4}
-            className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-green-700/30"
+            className="rounded-xl border border-[color:var(--color-brand-line)] bg-[color:var(--color-brand-soft)]/45 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[color:var(--color-brand)]/30"
             placeholder="Tell us HP range, crop type, acres, implement needs, finance/subsidy, delivery timeline..."
           />
         </div>
 
         <button
           type="submit"
-          className="mt-2 rounded-xl bg-green-700 px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
+          className="mt-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--color-brand-deep)]"
         >
           Send on WhatsApp
         </button>
