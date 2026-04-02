@@ -27,9 +27,11 @@ type TestimonialItem = {
   };
 };
 
+type PageTestimonial = TestimonialItem;
+
 export default async function TestimonialsPage() {
   const sanityItems = await sanityClient.fetch<TestimonialItem[]>(qTestimonials);
-  const items =
+  const items: PageTestimonial[] =
     sanityItems.length > 0
       ? sanityItems
       : fallbackTestimonials.map((t) => ({
@@ -38,6 +40,7 @@ export default async function TestimonialsPage() {
           place: t.location,
           quote: t.body,
           rating: t.rating,
+          product: undefined,
         }));
 
   return (

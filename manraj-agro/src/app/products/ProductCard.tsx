@@ -29,9 +29,7 @@ export function ProductCard({ p }: { p: Product }) {
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm font-semibold text-zinc-900">
-            {p.priceType === "fixed" && p.price
-              ? `₹ ${Number(p.price).toLocaleString("en-IN")}`
-              : "Get latest price"}
+            {p.price ?? "Get latest price"}
           </div>
           <span className="text-xs font-semibold text-zinc-700">View →</span>
         </div>
